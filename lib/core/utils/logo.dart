@@ -7,6 +7,9 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-        aspectRatio: 1.2 / 1, child: Image.asset(Assest.chatAppLogo));
+        aspectRatio: 1.4 / 1,
+        child: Image.asset(
+          Assets.chatAppLogo,
+        ));
   }
 }

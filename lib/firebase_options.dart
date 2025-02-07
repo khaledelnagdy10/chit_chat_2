@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'chit-chat3-6aff1',
     storageBucket: 'chit-chat3-6aff1.firebasestorage.app',
   );
+
 }

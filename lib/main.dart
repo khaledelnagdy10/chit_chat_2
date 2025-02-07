@@ -1,5 +1,7 @@
-import 'package:final_chit_chat/features/auth/data/auth_cubit/auth_cubit.dart';
-import 'package:final_chit_chat/features/auth/presentation/sign_up/presentation/view/sign_up_view.dart';
+import 'package:final_chit_chat/core/utils/services/auth_services.dart';
+import 'package:final_chit_chat/features/auth/presentation/controller/auth_cubit.dart';
+import 'package:final_chit_chat/features/auth/presentation/views/auth_view.dart';
+import 'package:final_chit_chat/features/home/presentation/views/home_view.dart';
 import 'package:final_chit_chat/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +20,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: const MaterialApp(home: SignUpView()),
+      create: (context) => AuthCubit(AuthServices()),
+      child: MaterialApp(home: HomeView(homeType: 1)),
     );
   }
 }

@@ -1,7 +1,10 @@
+import 'package:final_chit_chat/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomFloatingActionButton extends StatelessWidget {
-  const CustomFloatingActionButton({super.key});
+  const CustomFloatingActionButton({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +14,7 @@ class CustomFloatingActionButton extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('Create new group'),
+                title: const Text('Create New Group'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -47,7 +50,10 @@ class CustomFloatingActionButton extends StatelessWidget {
               );
             });
       },
-      child: const Icon(Icons.add),
+      backgroundColor: kPrimaryColor,
+      child: const Icon(
+        Icons.add,
+      ),
     );
   }
 }

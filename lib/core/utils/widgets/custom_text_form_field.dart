@@ -1,4 +1,4 @@
-import 'package:final_chit_chat/constans.dart';
+import 'package:final_chit_chat/core/utils/constants.dart';
 import 'package:final_chit_chat/core/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class CustomTextFormField extends StatelessWidget {
         },
         decoration: InputDecoration(
           labelText: text,
-          labelStyle: Style.textStyle18,
+          labelStyle: Style.textStyle18Black,
           prefixIcon: const Icon(Icons.email),
           prefixIconColor: kPrimaryColor,
           enabledBorder: const OutlineInputBorder(

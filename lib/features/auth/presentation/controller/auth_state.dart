@@ -10,7 +10,7 @@ final class AuthLoading extends AuthState {}
 final class AuthSuccess extends AuthState {}
 
 final class AuthFailure extends AuthState {
-  final String errMess;
+  final ErrorModel errorModel;
 
-  AuthFailure({required this.errMess});
+  AuthFailure({required this.errorModel});
 }

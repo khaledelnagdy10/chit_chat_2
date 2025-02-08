@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(AuthServices()),
-      child: MaterialApp(home: HomeView(homeType: 1)),
+      child: MaterialApp(home: AuthView(authType: 1)),
     );
   }
 }

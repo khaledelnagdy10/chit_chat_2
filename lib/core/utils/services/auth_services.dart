@@ -3,38 +3,44 @@ import 'package:final_chit_chat/core/data/models/error_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthServices {
-  Future<void> createUserWithEmailAndPassword(
+  Future<UserCredential> createUserWithEmailAndPassword(
       {required String emailAddress,
       required String password,
       required String fullName}) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        throw ErrorModel(message: "Weak password");
-      } else if (e.code == 'email-already-in-use') {
-        throw ErrorModel(message: "email-already-in-use");
-      }
+      return userCredential;
     } catch (e) {
-      throw ErrorModel(message: "Unknown error");
+      if (e is FirebaseAuthException) {
+        if (e.code == 'weak-password') {
+          throw ErrorModel(message: "Weak password");
+        } else if (e.code == 'email-already-in-use') {
+          throw ErrorModel(message: "email-already-in-use");
+        }
+      }
     }
+    throw ErrorModel(message: 'Unknown error ');
   }
 
-  Future<void> signUserWithEmailAndPassword({
+  Future<UserCredential> signUserWithEmailAndPassword({
     required String emailAddress,
     required String password,
   }) async {
     try {
-      await FirebaseAuth.instance
+      final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailAddress, password: password);
-      log('Firebase sign-in successful');
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-credential') {
-        throw ErrorModel(message: 'invalid-credential');
+      return userCredential;
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        if (e.code == 'invalid-credential') {
+          throw ErrorModel(message: 'Wrong email or password');
+        }
       }
+      throw ErrorModel(message: 'Unknown Error');
     }
   }
 

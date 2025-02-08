@@ -12,7 +12,7 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   final AuthServices authServices;
   CollectionReference collectionReference =
-      FirebaseFirestore.instance.collection('user');
+      FirebaseFirestore.instance.collection('users');
 
   AuthCubit(this.authServices) : super(AuthInitial());
 
@@ -23,17 +23,15 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(AuthLoading());
     try {
-      await authServices.createUserWithEmailAndPassword(
+      final userCredential = await authServices.createUserWithEmailAndPassword(
         fullName: fullName,
         emailAddress: emailAddress,
         password: password,
       );
 
-      collectionReference.add(
-          {'email': emailAddress, 'fullName': fullName, 'password': password});
-
-      //  final user = userCredential.user;
-      // log('${user?.uid}');
+      collectionReference
+          .doc(userCredential.user!.uid)
+          .set({'email': emailAddress, 'fullName': fullName});
 
       emit(AuthSuccess());
     } on ErrorModel catch (e) {
@@ -47,9 +45,9 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     emit(AuthLoading());
     try {
-      await authServices.signUserWithEmailAndPassword(
+      final userCredential = await authServices.signUserWithEmailAndPassword(
           emailAddress: emailAddress, password: password);
-
+      collectionReference.doc(userCredential.user!.uid).get();
       emit(AuthSuccess());
     } on ErrorModel catch (e) {
       emit(AuthFailure(errorModel: e));

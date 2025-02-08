@@ -6,6 +6,7 @@ import 'package:final_chit_chat/core/utils/text_styles.dart';
 import 'package:final_chit_chat/core/utils/widgets/custom_button.dart';
 import 'package:final_chit_chat/core/utils/widgets/custom_scaffold_messenger.dart';
 import 'package:final_chit_chat/features/auth/presentation/controller/auth_cubit.dart';
+import 'package:final_chit_chat/features/home/presentation/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/widgets/custom_text_form_field.dart';
@@ -31,11 +32,9 @@ class AuthView extends StatelessWidget {
           );
         }
         if (state is AuthSuccess) {
-          customScaffoldMessenger(
-            context,
-            message: 'successfully',
-            color: Colors.green,
-          );
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const HomeView(homeType: 0);
+          }));
         }
       },
       child: Scaffold(
